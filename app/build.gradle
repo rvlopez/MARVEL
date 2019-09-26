@@ -4,41 +4,54 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 28
+    androidExtensions {
+        experimental = true
+    }
+
+    compileSdkVersion 29
     defaultConfig {
         applicationId "developer.marvel.com"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 20190524
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"" + "http://gateway.marvel.com/v1/public"
-            buildConfigField "String", "PUBLIC_API_KEY", publicApiKey
-            buildConfigField "String", "PRIVATE_API_KEY", privateApiKey
+            buildConfigField "String", "BASE_URL", "\"" + baseUrl + "\""
+            buildConfigField "String", "PUBLIC_API_KEY", "\"" + privateApiKey + "\""
+            buildConfigField "String", "PRIVATE_API_KEY", "\"" + privateApiKey + "\""
         }
         release {
             minifyEnabled false
-            buildConfigField "String", "BASE_URL", "\"" + "http://gateway.marvel.com/v1/public"
-            buildConfigField "String", "PUBLIC_API_KEY", publicApiKey
-            buildConfigField "String", "PRIVATE_API_KEY", privateApiKey
+            buildConfigField "String", "BASE_URL", "\"" + baseUrl + "\""
+            buildConfigField "String", "PUBLIC_API_KEY", "\"" + privateApiKey + "\""
+            buildConfigField "String", "PRIVATE_API_KEY", "\"" + privateApiKey + "\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+    implementation "androidx.appcompat:appcompat:$supportVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     // DATA dependencies
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxBindingVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
@@ -50,13 +63,13 @@ dependencies {
 
     implementation "javax.inject:javax.inject:$javaxInjectVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
 
     // SUPPORT dependencies
     implementation "com.jakewharton.timber:timber:$timberVersion"
-    debugImplementation "com.readystatesoftware.chuck:library:$chuckVersion"
+    //debugImplementation "com.readystatesoftware.chuck:library:$chuckVersion"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

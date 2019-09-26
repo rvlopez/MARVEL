@@ -1,21 +1,26 @@
 package developer.marvel.com.presentation.ui.comics
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import developer.marvel.com.domain.entity.ComicDataWrapper
 import developer.marvel.com.domain.usecase.GetComicsUseCase
 import developer.marvel.com.presentation.ui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class ComicsViewModel @Inject constructor(
     private val getComicsUseCase: GetComicsUseCase
 ) : BaseViewModel() {
 
-    private val _ldComics = MutableLiveData<ComicDataWrapper>()
-    val ldComics: LiveData<ComicDataWrapper> = _ldComics
+    init {
+        getComics()
+    }
 
-    fun getComics() =
+    private val _ldComics = MutableLiveData<ComicDataWrapper.ComicData>()
+    val ldComics: LiveData<ComicDataWrapper.ComicData> = _ldComics
+
+    private fun getComics() =
         getComicsUseCase(Unit)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { loading(true) }
@@ -23,6 +28,6 @@ class ComicsViewModel @Inject constructor(
             .subscribe({ comics ->
                 _ldComics.value = comics
             }, {})
-            .add()
+            .addTo(compositeDisposable)
 
 }

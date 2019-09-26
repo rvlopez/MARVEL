@@ -12,7 +12,7 @@ class ComicsRepositoryImpl @Inject constructor(
     private val comicsLocalDataSource: ComicsLocalDataSource
 ) : ComicsRepository {
 
-    override fun getComics(): Single<ComicDataWrapper> =
+    override fun getComics(): Single<ComicDataWrapper.ComicData> =
         comicsRemoteDataSource.getComics()
             .doOnSuccess { comics ->
                 comicsLocalDataSource.saveComics(comics)

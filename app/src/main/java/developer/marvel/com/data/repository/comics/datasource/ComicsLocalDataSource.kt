@@ -14,11 +14,11 @@ class ComicsLocalDataSource @Inject constructor(
     private val assistant: SharedPreferencesAssistant
 ) : BaseLocalDataSource() {
 
-    fun saveComics(comicDataWrapper: ComicDataWrapper) {
+    fun saveComics(comicDataWrapper: ComicDataWrapper.ComicData) {
         assistant.saveString(COMIC_LIST_KEY, comicDataWrapper.toJson())
     }
 
-    fun getComics(): Single<ComicDataWrapper> =
+    fun getComics(): Single<ComicDataWrapper.ComicData> =
         assistant.getString(COMIC_LIST_KEY).fromJson()
 
 }

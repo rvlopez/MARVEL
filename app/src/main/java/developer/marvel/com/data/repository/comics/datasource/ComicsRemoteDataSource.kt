@@ -9,7 +9,7 @@ class ComicsRemoteDataSource @Inject constructor(
     private val comicsApi: ComicsApi
 ) {
 
-    fun getComics(): Single<ComicDataWrapper> =
-        comicsApi.getComics().map { it.toDomain() }
+    fun getComics(): Single<ComicDataWrapper.ComicData> =
+        comicsApi.getComics().map { it.toDomain().comicDataResponse }
 
 }

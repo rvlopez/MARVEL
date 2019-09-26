@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class GetComicsUseCase @Inject constructor(
     private val comicsRepository: ComicsRepository
-) : SingleUseCase<ComicDataWrapper, Unit> {
+) : SingleUseCase<ComicDataWrapper.ComicData, Unit> {
 
-    override fun invoke(params: Unit): Single<ComicDataWrapper> =
+    override fun invoke(params: Unit): Single<ComicDataWrapper.ComicData> =
         comicsRepository.getComics()
 
 }

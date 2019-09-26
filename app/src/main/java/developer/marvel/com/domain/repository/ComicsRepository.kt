@@ -5,6 +5,6 @@ import io.reactivex.Single
 
 interface ComicsRepository {
 
-    fun getComics(): Single<ComicDataWrapper>
+    fun getComics(): Single<ComicDataWrapper.ComicData>
 
 }
