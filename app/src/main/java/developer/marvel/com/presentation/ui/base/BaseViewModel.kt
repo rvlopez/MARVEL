@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -12,10 +11,6 @@ abstract class BaseViewModel : ViewModel() {
     val ldLoading: LiveData<Boolean> = mutableLoading
 
     protected val compositeDisposable = CompositeDisposable()
-
-    protected fun Disposable.add() {
-        compositeDisposable.add(this)
-    }
 
     override fun onCleared() {
         compositeDisposable.dispose()

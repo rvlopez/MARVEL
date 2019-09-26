@@ -13,9 +13,12 @@ class ComicsRepositoryImpl @Inject constructor(
 ) : ComicsRepository {
 
     override fun getComics(): Single<ComicDataWrapper.ComicData> =
-        comicsRemoteDataSource.getComics()
-            .doOnSuccess { comics ->
-                comicsLocalDataSource.saveComics(comics)
+        Single.concat(
+            comicsLocalDataSource.getComics(),
+            comicsRemoteDataSource.getComics().flatMap { comicsData ->
+                comicsLocalDataSource.saveComics(comicsData)
+                Single.just(comicsData)
             }
+        ).filter { it.comics.isNotEmpty() }.firstOrError()
 
 }

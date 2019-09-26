@@ -20,7 +20,7 @@ class ComicsFragment : BaseFragment() {
 
     private val comicsAdapter: ComicsAdapter by lazy {
         ComicsAdapter {
-
+            //TODO: Implement onClick
         }
     }
 
@@ -31,6 +31,10 @@ class ComicsFragment : BaseFragment() {
 
     private fun setUpVieWModel() {
         comicsViewModel = viewModel(viewModelFactory.get()) {
+
+            observe(ldLoading) {
+
+            }
 
             observe(ldComics) { comicData ->
                 val comicList = comicData.comics

@@ -5,20 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import developer.marvel.com.R
 import developer.marvel.com.presentation.ui.entity.ComicUI
-import developer.marvel.com.presentation.ui.inflate
-import developer.marvel.com.presentation.ui.recyclerview.RecyclerViewObject
-import developer.marvel.com.presentation.ui.setOnReactiveClickListener
+import developer.marvel.com.presentation.extensions.inflate
+import developer.marvel.com.presentation.extensions.setOnReactiveClickListener
 import kotlinx.android.synthetic.main.item_comic.view.*
 
 class ComicsAdapter(
-    onItemClick: (ComicUI) -> Unit
+    private val onItemClick: (ComicUI) -> Unit
 ) : RecyclerView.Adapter<ComicsAdapter.ViewHolder>() {
 
-    var list = mutableListOf<RecyclerViewObject>()
+    var list = mutableListOf<ComicUI>()
         private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.inflate(R.layout.item_comic))
+        ViewHolder(parent.inflate(R.layout.item_comic), onItemClick)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(list[position])
@@ -27,7 +26,7 @@ class ComicsAdapter(
 
     override fun getItemViewType(position: Int): Int = list[position].itemViewType.ordinal
 
-    fun addItemsToList(newList: List<RecyclerViewObject>) {
+    fun addItemsToList(newList: List<ComicUI>) {
         if (list.isEmpty()) {
             list.addAll(newList)
             notifyDataSetChanged()
@@ -38,10 +37,10 @@ class ComicsAdapter(
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, val onItemClick: (ComicUI) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(recyclerViewObject: RecyclerViewObject) = with(itemView) {
-            setOnReactiveClickListener {  }
+        fun bind(comicUI: ComicUI) = with(itemView) {
+            setOnReactiveClickListener { onItemClick(comicUI) }
             test.text = ""
         }
 

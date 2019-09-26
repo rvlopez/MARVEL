@@ -1,4 +1,4 @@
-package developer.marvel.com.presentation.ui
+package developer.marvel.com.presentation.extensions
 
 import android.view.LayoutInflater
 import android.view.View
