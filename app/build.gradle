@@ -6,19 +6,21 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+def rootProjectExt = rootProject.ext
+
 android {
     androidExtensions {
         experimental = true
     }
 
-    compileSdkVersion 29
+    compileSdkVersion rootProjectExt.androidCompileSdkVersion
     defaultConfig {
-        applicationId "developer.marvel.com"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 20190524
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId rootProjectExt.applicationId
+        minSdkVersion rootProjectExt.minSdkVersion
+        targetSdkVersion rootProjectExt.targetSdkVersion
+        versionCode rootProjectExt.versionCode
+        versionName rootProjectExt.versionName
+        testInstrumentationRunner rootProjectExt.testInstrumentationRunner
     }
     buildTypes {
         debug {
@@ -48,18 +50,15 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$supportVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
-    // DATA dependencies
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation "com.jakewharton.rxbinding3:rxbinding:$rxBindingVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit2Version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2Version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$moshiConverterVersion"
-
-    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
-    implementation "com.squareup.moshi:moshi:$moshiVersion"
 
     implementation "javax.inject:javax.inject:$javaxInjectVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -72,4 +71,5 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timberVersion"
     //debugImplementation "com.readystatesoftware.chuck:library:$chuckVersion"
 
+    implementation project(':domain')
 }

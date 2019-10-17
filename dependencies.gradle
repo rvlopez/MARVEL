@@ -1,0 +1,34 @@
+ext {
+
+    // Android
+    minSdkVersion = 19
+    targetSdkVersion = 28
+    versionCode = 20181017
+    versionName = "1.0.0"
+    androidCompileSdkVersion = 28
+    applicationId = "developer.marvel.com"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    // Third-party
+    lifecycleVersion = '2.2.0-alpha02'
+    constraintLayoutVersion = '2.0.0-beta1'
+    supportVersion = '1.1.0-rc01'
+    // Rx
+    rxKotlinVersion = '2.3.0'
+    rxAndroidVersion = '2.1.1'
+    rxJavaVersion = '2.2.8'
+    rxBindingVersion = '3.0.0-alpha2'
+    // Dependency injection
+    daggerVersion = '2.23.2'
+    javaxInjectVersion = '1'
+    // Network
+    retrofit2Version = '2.5.0'
+    okhttpLoggingVersion = '3.12.0'
+    chuckVersion = '1.1.0'
+    // Data parser
+    moshiVersion = '1.7.0'
+    moshiConverterVersion = '2.4.0'
+    // Support
+    timberVersion = '4.7.1'
+
+}

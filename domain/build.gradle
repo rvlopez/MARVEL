@@ -1,0 +1,17 @@
+apply plugin: 'java-library'
+
+apply plugin: 'kotlin'
+
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxBindingVersion"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+}
